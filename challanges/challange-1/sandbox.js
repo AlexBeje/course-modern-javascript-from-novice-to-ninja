@@ -1,6 +1,7 @@
-const pars = document.querySelectorAll('p');
+const paras = document.querySelectorAll('p');
 
-pars.forEach(par => {
-  par.innerText.includes('success') && par.classList.add('success');
-  par.innerText.includes('error') && par.classList.add('error');
+paras.forEach(p => {
+  // textContent -> get all the text regarding if it is hidden or not
+  p.textContent.includes('success') && p.classList.add('success');
+  p.textContent.includes('error') && p.classList.add('error');
 })
