@@ -6,7 +6,7 @@ form.addEventListener("submit", (e) => {
   //* the default action is to refresh the page.
   e.preventDefault();
 
-  let score = 0;
+  let score = 0;  
   //* get the value of the form input named 'q1'
   const userAnswers = [
     form.q1.value,
@@ -23,10 +23,20 @@ form.addEventListener("submit", (e) => {
   });
 
   // show result on page
-  //* search inside the .result element for a span element
-  result.querySelector("span").textContent = `${score}%`;
   result.classList.remove("d-none");
 
   // scroll to top
   scrollTo(0, 0);
+
+  // animation
+  let output = 0;
+  const timer = setInterval(() => {
+    //* search inside the .result element for a span element
+    result.querySelector("span").textContent = `${output}%`;
+    if (output === score) {
+      clearInterval(timer);
+    } else {
+      output++;
+    }
+  }, 10);
 });
