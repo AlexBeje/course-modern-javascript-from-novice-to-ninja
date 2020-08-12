@@ -26,4 +26,7 @@ form.addEventListener("submit", (e) => {
   //* search inside the .result element for a span element
   result.querySelector("span").textContent = `${score}%`;
   result.classList.remove("d-none");
+
+  // scroll to top
+  scrollTo(0, 0);
 });
