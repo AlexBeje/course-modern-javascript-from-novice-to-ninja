@@ -1,11 +1,23 @@
 const cityForm = document.querySelector("form");
 const card = document.querySelector(".card");
 const details = document.querySelector(".details");
+const time = document.querySelector("img.time");
+const icon = document.querySelector(".icon img");
 
 const updateUi = data => {
-  const cityDetails = data.cityDetails;
-  const cityWeather = data.cityWeather;
-  
+  // default properties
+  // const cityDetails = data.cityDetails;
+  // const cityWeather = data.cityWeather;
+
+  console.log('😪', data)
+
+  //* destructure properties
+  //* get the cityData and the cityWeather from the object data and store the data in two constants, cityDetails and cityWeather
+  const {
+    cityDetails,
+    cityWeather
+  } = data;
+
   //* update the details template
   details.innerHTML = `
     <h5 class="my-3">${cityDetails.EnglishName}</h5>
@@ -15,6 +27,14 @@ const updateUi = data => {
       <span>&deg;C</span>
     </div>
   `
+
+  // update the weather icon
+  let iconSrc = `img/icons/${cityWeather.WeatherIcon}.svg`;
+  icon.setAttribute('src', iconSrc);
+
+  // update the night and day placeholder
+  let timeSrc = cityWeather.IsDayTime ? 'img/day.svg' : 'img/night.svg';
+  time.setAttribute('src', timeSrc);
 
   //* remove the display none
   card.classList.remove('d-none');
