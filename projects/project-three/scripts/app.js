@@ -1,32 +1,26 @@
-const key = "foJW0EKqAslB0bemLUMWo47bcPzynnkw";
+const cityForm = document.querySelector("form");
 
-//get weather information
-const getWeather = async city => {
-  const base = "http://dataservice.accuweather.com/currentconditions/v1/";
-  const query = `${city}?apikey=${key}`;
+const updateCity = async city => {
+  const cityDetails = await getCity(city);
+  const cityWeather = await getWeather(cityDetails.Key);
 
-  const response = await fetch(base + query);
-  const data = await response.json();
+  return {
+    cityDetails: cityDetails,
+    cityWeather: cityWeather
+  }
+}
 
-  return data[0];
-};
+cityForm.addEventListener('submit', e => {
+  //prevent default value
+  e.preventDefault();
 
-// get city information
-const getCity = async city => {
-  const base = "http://dataservice.accuweather.com/locations/v1/cities/search";
-  //* ? -> queries are added to the base string
-  //* & -> another querie
-  const query = `?apikey=${key}&q=${city}`;
+  //get city value
+  const city = cityForm.city.value.trim();
+  cityForm.reset();
 
-  const response = await fetch(base + query);
-  const data = await response.json();
+  //update the ui with the new city value
+  updateCity(city)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 
-  return data[0];
-};
-
-getCity('Lleida')
-  .then(city => {
-    return getWeather(city.Key)
-      .then(data => console.log('👲', data))
-  })
-  .catch(err => console.log(err))
+})
