@@ -6,7 +6,6 @@
   color: white;
   outline: none !important;
   box-shadow: none !important;
-  width: 80px;
 }
 .btn:focus{
   outline: none !important;
