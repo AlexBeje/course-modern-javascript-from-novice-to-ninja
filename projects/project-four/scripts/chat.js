@@ -24,11 +24,31 @@ class Chatroom {
     const response = await this.chats.add(chat);
     return response;
   }
+  getChats(callback){
+    this.chats
+      .where('room', '==', this.room)
+      .orderBy('created_at')
+      .onSnapshot(snapshot => {
+        //* Get the document changes
+        snapshot.docChanges().forEach(change => {
+          if(change.type === 'added') {
+            // update the UI
+            //* doc(get the doc reference)
+            //* data(get the doc data)
+            callback(change.doc.data())
+          }
+        })
+      })
+  }
 }
 
 const chatroom = new Chatroom("gaming", "shoun");
 
-chatroom
-  .addChat("hello everyone")
-  .then(() => console.log("chat added"))
-  .catch(err => console.log("err", err));
+// chatroom
+//   .addChat("hello everyone")
+//   .then(() => console.log("chat added"))
+//   .catch(err => console.log("err", err));
+
+chatroom.getChats(data => {
+  console.log('🤝', data)
+})
