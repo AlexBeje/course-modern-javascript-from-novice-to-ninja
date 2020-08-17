@@ -15,7 +15,7 @@
   font-weight: bold;
 }
 
-.time {
+.time, .update-mssg {
   font-size: 0.7em;
   color: #999;
 }
